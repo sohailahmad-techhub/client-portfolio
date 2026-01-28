@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afzal Khan | Biochemist Portfolio</title>
+    <meta name="description"
+        content="Portfolio of Afzal Khan - Biochemist specializing in Molecular Biology & Drug Discovery">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace'],
+                    },
+                    colors: {
+                        navy: '#0f172a',
+                        cyan: {
+                            400: '#22d3ee',
+                            500: '#06b6d4',
+                        },
+                        purple: {
+                            500: '#8b5cf6',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="text-gray-800 dark:text-gray-200 antialiased font-sans bg-gray-50 dark:bg-navy selection:bg-cyan-500 selection:text-white cursor-none transition-colors duration-300">
+
+    <!-- Custom Cursor Elements -->
+    <div id="cursor-dot"
+        class="fixed w-2 h-2 bg-black dark:bg-white rounded-full pointer-events-none z-[100] top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 mix-blend-difference hidden md:block">
+    </div>
+    <div id="cursor-outline"
+        class="fixed w-8 h-8 border border-cyan-500 dark:border-cyan-400 rounded-full pointer-events-none z-[100] top-0 left-0 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out hidden md:block">
+    </div>
+
+    <!-- Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <!-- Canvas for Particles -->
+        <canvas id="bg-canvas" class="absolute top-0 left-0 w-full h-full opacity-30"></canvas>
+        <div
+            class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200 dark:bg-purple-900 rounded-full mix-blend-screen dark:mix-blend-screen filter blur-[100px] opacity-20 animate-float">
+        </div>
+        <div
+            class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-cyan-200 dark:bg-cyan-900 rounded-full mix-blend-screen dark:mix-blend-screen filter blur-[100px] opacity-20 animate-float-delay">
+        </div>
+
+        <!-- Floating Icons -->
+        <i class="fa-solid fa-flask absolute top-1/4 left-10 text-cyan-500 opacity-10 text-4xl animate-float"></i>
+        <i
+            class="fa-solid fa-dna absolute bottom-1/3 right-10 text-purple-500 opacity-10 text-5xl animate-float-delay"></i>
+        <i
+            class="fa-solid fa-laptop-code absolute top-1/3 right-1/4 text-emerald-500 opacity-10 text-3xl animate-float"></i>
+        <i
+            class="fa-solid fa-microscope absolute bottom-10 left-1/3 text-blue-500 opacity-10 text-4xl animate-float-delay"></i>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#"
+                class="text-2xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-purple-600 dark:from-cyan-400 dark:to-purple-500 flex items-center gap-2 cursor-pointer">
+                <i class="fa-solid fa-dna text-cyan-500 dark:text-cyan-400"></i> Afzal Khan
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#home"
+                        class="text-gray-600 dark:text-cyan-400 hover:text-cyan-500 dark:hover:text-white transition-colors cursor-pointer">Home</a>
+                </li>
+                <li><a href="#experience"
+                        class="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Experience</a>
+                </li>
+                <li><a href="#skills"
+                        class="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Expertise</a>
+                </li>
+                <li><a href="#academic"
+                        class="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Education</a>
+                </li>
+                <li><a href="#publications"
+                        class="text-gray-600 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors cursor-pointer">Research</a>
+                </li>
+                <li><a href="#contact"
+                        class="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-1 cursor-pointer">Contact
+                        Me</a></li>
+                <!-- Theme Toggle -->
+                <li>
+                    <button id="theme-toggle"
+                        class="text-gray-600 dark:text-yellow-400 hover:text-cyan-500 transition-colors text-xl cursor-pointer">
+                        <i class="fa-solid fa-sun hidden dark:inline"></i>
+                        <i class="fa-solid fa-moon inline dark:hidden"></i>
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button & Toggle -->
+            <div class="flex items-center gap-4 md:hidden">
+                <button id="theme-toggle-mobile" class="text-gray-600 dark:text-yellow-400 text-xl cursor-pointer">
+                    <i class="fa-solid fa-sun hidden dark:inline"></i>
+                    <i class="fa-solid fa-moon inline dark:hidden"></i>
+                </button>
+                <button id="mobile-menu-btn"
+                    class="text-2xl text-cyan-500 dark:text-cyan-400 focus:outline-none cursor-pointer">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy/95 border-b border-white/10 p-4 absolute w-full">
+            <ul class="flex flex-col space-y-4 text-center">
+                <li><a href="#home" class="block text-gray-300 hover:text-cyan-400 cursor-pointer">Home</a></li>
+                <li><a href="#experience" class="block text-gray-300 hover:text-cyan-400 cursor-pointer">Experience</a>
+                </li>
+                <li><a href="#skills" class="block text-gray-300 hover:text-cyan-400 cursor-pointer">Expertise</a></li>
+                <li><a href="#academic" class="block text-gray-300 hover:text-cyan-400 cursor-pointer">Education</a>
+                </li>
+                <li><a href="#publications" class="block text-gray-300 hover:text-cyan-400 cursor-pointer">Research</a>
+                </li>
+                <li><a href="#contact" class="block text-cyan-400 font-bold cursor-pointer">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative">
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="relative inline-block mb-8 reveal">
+                <div
+                    class="w-40 h-40 md:w-52 md:h-52 rounded-full p-1 bg-gradient-to-r from-cyan-400 via-purple-500 to-emerald-400 mx-auto profile-glow">
+                    <!-- Placeholder image, user can replace -->
+                    <img src="afzal-photo.jpeg" alt="Afzal Khan"
+                        class="w-full h-full object-cover rounded-full border-4 border-navy bg-navy cursor-pointer">
+                </div>
+                <div class="absolute bottom-2 right-2 bg-navy p-2 rounded-full border border-cyan-500/30">
+                    <i class="fa-solid fa-flask text-cyan-400 text-xl"></i>
+                </div>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 reveal">
+                Afzal <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 text-glow">Khan</span>
+            </h1>
+
+            <h2 class="text-2xl md:text-3xl font-mono text-cyan-200 mb-6 reveal delay-100">
+                Biochemist
+            </h2>
+            <p class="text-lg md:text-xl text-emerald-400 mb-8 font-medium reveal delay-200">
+                Biochemistry, Molecular Biology & Drug Discovery
+            </p>
+
+            <p
+                class="max-w-3xl mx-auto text-gray-400 mb-12 leading-relaxed reveal delay-300 glass p-6 rounded-xl text-left md:text-center">
+                Biochemist with a strong foundation in molecular biology, enzymology, physiology, and cellular
+                processes. Experienced in wet-lab techniques including chromatography (HPLC, GC), spectroscopy, and
+                enzyme kinetics, complemented by computational expertise in molecular docking, dynamics, and
+                structure-based drug design. Bridging experimental biochemistry and computational biology to discover
+                new therapeutics.
+            </p>
+
+            <!-- Stats -->
+            <div id="stats" class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto reveal delay-500">
+                <div class="glass p-4 rounded-lg text-center box-glow transition-all cursor-pointer">
+                    <i class="fa-solid fa-briefcase text-2xl text-cyan-400 mb-2"></i>
+                    <h3 class="text-3xl font-bold text-white counter-value" data-target="2">0</h3>
+                    <p class="text-sm text-gray-400">Years Exp</p>
+                </div>
+                <div class="glass p-4 rounded-lg text-center box-glow transition-all cursor-pointer">
+                    <i class="fa-solid fa-microscope text-2xl text-purple-400 mb-2"></i>
+                    <h3 class="text-3xl font-bold text-white counter-value" data-target="20">0</h3>
+                    <p class="text-sm text-gray-400">Lab Techniques</p>
+                </div>
+                <div class="glass p-4 rounded-lg text-center box-glow transition-all cursor-pointer">
+                    <i class="fa-solid fa-certificate text-2xl text-emerald-400 mb-2"></i>
+                    <h3 class="text-3xl font-bold text-white counter-value" data-target="15">0</h3>
+                    <p class="text-sm text-gray-400">Certifications</p>
+                </div>
+                <div class="glass p-4 rounded-lg text-center box-glow transition-all cursor-pointer">
+                    <i class="fa-solid fa-file-medical text-2xl text-yellow-400 mb-2"></i>
+                    <h3 class="text-3xl font-bold text-white counter-value" data-target="1">0</h3>
+                    <p class="text-sm text-gray-400">Publication</p>
+                </div>
+            </div>
+
+            <div class="mt-16 animate-bounce">
+                <a href="#experience" class="text-gray-500 hover:text-cyan-400 transition-colors cursor-pointer">
+                    <i class="fa-solid fa-chevron-down text-2xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience (Timeline) -->
+    <section id="experience" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 reveal">
+                <i class="fa-solid fa-history text-purple-500 mr-2"></i> Work Experience
+                <div class="h-1 w-20 bg-gradient-to-r from-purple-500 to-cyan-500 mx-auto mt-4 rounded-full"></div>
+            </h2>
+
+            <div class="relative timeline-line">
+
+                <!-- Item 1 (Right) -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-12 w-full reveal">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div
+                        class="z-20 bg-cyan-500 w-8 h-8 rounded-full border-4 border-navy shadow-[0_0_15px_rgba(6,182,212,0.8)] flex items-center justify-center">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div class="w-full md:w-5/12 pl-8 md:pl-0">
+                        <div
+                            class="glass p-6 rounded-xl border-l-4 border-cyan-400 hover:transform hover:scale-105 transition-all duration-300 cursor-pointer">
+                            <span class="text-cyan-400 text-sm font-mono tracking-widest">Sep 2023 – Current</span>
+                            <h3 class="text-xl font-bold text-white mt-1">Lab Assistant</h3>
+                            <h4 class="text-md text-emerald-300">CADD | Abdul Wali Khan University, Mardan</h4>
+                            <p class="text-gray-400 text-sm mb-3">Cancer, Diabetes & Neurodegenerative Research</p>
+                            <ul class="text-gray-300 space-y-2 text-sm list-disc list-inside">
+                                <li>Perform molecular docking, virtual screening, and MD simulations.</li>
+                                <li>Identify potential therapeutic compounds for various diseases.</li>
+                                <li>Support lab operations and computational workflows.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 (Left) - Summer School -->
+                <div class="flex flex-col md:flex-row-reverse items-center justify-between mb-12 w-full reveal">
+                    <div class="hidden md:block w-5/12"></div>
+                    <div
+                        class="z-20 bg-purple-500 w-8 h-8 rounded-full border-4 border-navy shadow-[0_0_15px_rgba(139,92,246,0.8)] flex items-center justify-center">
+                        <div class="w-2 h-2 bg-white rounded-full"></div>
+                    </div>
+                    <div class="w-full md:w-5/12 pl-8 md:pr-0 md:pl-0 md:text-right">
+                        <div
+                            class="glass p-6 rounded-xl border-r-4 md:border-r-0 md:border-l-0 md:border-r-4 border-purple-400 hover:transform hover:scale-105 transition-all duration-300 text-left md:text-left cursor-pointer">
+                            <span class="text-purple-400 text-sm font-mono tracking-widest">2024</span>
+                            <h3 class="text-xl font-bold text-white mt-1">International Summer School</h3>
+                            <h4 class="text-md text-emerald-300">Bio-X Institute | Shanghai Jiao Tong University, China
+                            </h4>
+                            <p class="text-gray-300 text-sm mt-2">
+                                "Brain Facts" - Advanced Neurobiology exposure and international collaboration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Periodic Table of Expertise -->
+    <section id="skills" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 reveal">
+                Experimental &<span class="text-cyan-400">Computational Skills</span>
+            </h2>
+
+
+            <!-- Legend -->
+            <div class="flex justify-center flex-wrap gap-4 mb-10 reveal text-sm">
+                <span class="flex items-center"><span class="w-3 h-3 bg-cyan-500 mr-2 rounded-sm"></span>
+                    Computational</span>
+                <span class="flex items-center"><span class="w-3 h-3 bg-purple-500 mr-2 rounded-sm"></span> Wet
+                    Lab</span>
+                <span class="flex items-center"><span class="w-3 h-3 bg-emerald-500 mr-2 rounded-sm"></span>
+                    Analysis</span>
+                <span class="flex items-center"><span class="w-3 h-3 bg-orange-500 mr-2 rounded-sm"></span> Tools</span>
+            </div>
+
+            <div class="periodic-grid content-center max-w-6xl mx-auto reveal">
+
+                <!-- Computational (Cyan) -->
+                <div
+                    class="aspect-square glass hover:bg-cyan-500/20 border-cyan-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-cyan-300">01</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300">Md</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Mol. Docking</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-cyan-500/20 border-cyan-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-cyan-300">02</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300">Vs</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Virt. Screen</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-cyan-500/20 border-cyan-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-cyan-300">03</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300">Dy</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Mol. Dynamics</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-cyan-500/20 border-cyan-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-cyan-300">04</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300">Hm</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Homology Mod</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-cyan-500/20 border-cyan-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-cyan-300">05</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-cyan-300">Ml</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Machine Learn</p>
+                    </div>
+                </div>
+
+                <!-- Wet Lab (Purple) -->
+                <div
+                    class="aspect-square glass hover:bg-purple-500/20 border-purple-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-purple-300">06</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300">Hp</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">HPLC</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-purple-500/20 border-purple-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-purple-300">07</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300">Gc</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Gas Chrom.</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-purple-500/20 border-purple-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-purple-300">08</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300">El</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">ELISA</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-purple-500/20 border-purple-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-purple-300">09</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300">Wb</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Western Blot</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-purple-500/20 border-purple-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-purple-300">10</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-purple-300">Pc</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">PCR/qPCR</p>
+                    </div>
+                </div>
+
+                <!-- Analysis (Emerald) -->
+                <div
+                    class="aspect-square glass hover:bg-emerald-500/20 border-emerald-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-emerald-300">11</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300">Uv</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">UV/IR Spec</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-emerald-500/20 border-emerald-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-emerald-300">12</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300">Fp</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Flame Phot.</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-emerald-500/20 border-emerald-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-emerald-300">13</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300">Ms</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Mass Spec</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-emerald-500/20 border-emerald-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-emerald-300">14</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-300">En</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Enzymology</p>
+                    </div>
+                </div>
+
+                <!-- Tools (Orange) -->
+                <div
+                    class="aspect-square glass hover:bg-orange-500/20 border-orange-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-orange-300">15</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-orange-300">Py</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Python</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-orange-500/20 border-orange-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-orange-300">16</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-orange-300">Lx</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Linux</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-orange-500/20 border-orange-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-orange-300">17</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-orange-300">Am</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Amber</p>
+                    </div>
+                </div>
+                <div
+                    class="aspect-square glass hover:bg-orange-500/20 border-orange-500/30 border transition-all duration-300 p-2 flex flex-col justify-between cursor-pointer group hover:scale-110 relative overflow-hidden">
+                    <span class="text-xs text-orange-300">18</span>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-white group-hover:text-orange-300">Fc</h3>
+                        <p class="text-[0.6rem] text-gray-300 uppercase">Flow Cyt.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Academic Journey -->
+    <section id="academic" class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 reveal">
+                <i class="fa-solid fa-graduation-cap text-emerald-500 mr-2"></i> Academic Journey
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Bachelor's -->
+                <div class="glass p-8 rounded-xl border border-white/5 relative overflow-hidden group reveal">
+                    <div class="absolute top-0 right-0 p-4 opacity-50">
+                        <i
+                            class="fa-solid fa-user-graduate text-6xl text-white/5 group-hover:text-cyan-400/20 transition-all"></i>
+                    </div>
+                    <span
+                        class="px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-bold rounded-full mb-4 inline-block">10/09/2019
+                        – 27/06/2023</span>
+                    <h3 class="text-2xl font-bold text-white mb-1">Bachelor of Science in Biochemistry</h3>
+                    <h4 class="text-xl text-emerald-400 mb-4">Abdul Wali Khan University Mardan, Pakistan</h4>
+
+                    <div class="mb-4">
+                        <span class="text-sm text-gray-400 block mb-1">Thesis</span>
+                        <span class="text-white font-mono text-sm">"Machine Learning-Based Virtual Screening
+                            for the Identification of Beta Amyloid 42 Inhibitors"</span>
+                    </div>
+
+                    <div class="mb-4 pt-4 border-t border-white/5">
+                        <span class="text-sm text-gray-400 block mb-2">Relevant Courses</span>
+                        <p class="text-xs text-gray-300 leading-relaxed font-mono">
+                            Cell Biology, Human Physiology, Metabolism, Molecular Biology, Immunology, Enzymology,
+                            Cellular
+                            Signaling & Mechanisms, Proteomics, Genetic Engineering, Biotechnology
+                        </p>
+                    </div>
+                </div>
+
+                <!-- FSc -->
+                <div class="glass p-8 rounded-xl border border-white/5 relative overflow-hidden group reveal delay-100">
+                    <div class="absolute top-0 right-0 p-4 opacity-50">
+                        <i
+                            class="fa-solid fa-school text-6xl text-white/5 group-hover:text-purple-400/20 transition-all"></i>
+                    </div>
+                    <span
+                        class="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded-full mb-4 inline-block">2016
+                        - 2018</span>
+                    <h3 class="text-2xl font-bold text-white mb-1">FSc (Pre-Medical)</h3>
+                    <h4 class="text-xl text-purple-400 mb-4">University College for Boys,University Peshawar</h4>
+
+                    <div class="mb-4">
+                        <span class="text-sm text-gray-400 block mb-1">Focus</span>
+                        <span class="text-white font-mono">Biology, Chemistry, Physics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Honours & Awards -->
+            <div class="mt-16 reveal">
+                <h3 class="text-center text-xl font-bold text-white mb-8"><span
+                        class="bg-orange-500 w-2 h-2 inline-block rounded-full mr-2"></span> Honours & Awards</h3>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <div
+                        class="glass px-6 py-4 rounded-full flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors">
+                        <i class="fa-solid fa-file-signature text-yellow-400"></i>
+                        <div>
+                            <p class="text-sm font-bold">Research Support Program</p>
+                            <p class="text-xs text-gray-400">Govt of KP (2023)</p>
+                        </div>
+                    </div>
+                    <div
+                        class="glass px-6 py-4 rounded-full flex items-center gap-3 cursor-pointer hover:bg-white/5 transition-colors">
+                        <i class="fa-solid fa-medal text-orange-400"></i>
+                        <div>
+                            <p class="text-sm font-bold">Ehsaas Scholarship</p>
+                            <p class="text-xs text-gray-400">HEC Pakistan (2020)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Research Output (Publications) -->
+    <section id="publications" class="py-20 bg-black/20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 reveal">
+                <i class="fa-solid fa-book-journal-whills text-pink-500 mr-2"></i> Research Output
+            </h2>
+            <p class="text-center text-gray-400 mb-16 reveal">Contributing to Drug Discovery & Molecular Science</p>
+
+            <div class="space-y-6 max-w-4xl mx-auto">
+
+                <!-- Publication Card -->
+                <div
+                    class="glass p-6 rounded-xl group hover:border-pink-500/50 border border-white/10 transition-all reveal cursor-pointer">
+                    <div class="flex justify-between items-start mb-4">
+                        <span
+                            class="text-pink-400 font-mono text-xs border border-pink-500/30 px-2 py-1 rounded">Ongoing
+                            (2025)</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pink-400 transition-colors">Frontiers
+                        in Molecular Biosciences</h3>
+                    <p class="text-gray-300 italic mb-4">
+                        "Computational Identification of Natural Compounds Modulating Aβ42 and Associated Pathways in
+                        Alzheimer Disease: A Network Pharmacology Approach"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conferences -->
+            <div class="mt-16 reveal max-w-5xl mx-auto">
+                <h3 class="text-xl font-bold text-white mb-6 text-center">Conferences & Seminars</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="glass p-4 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Dana-Farber Center for BRCA Symposium</p>
+                            <p class="text-xs text-gray-400">Harvard Medical School, Boston (2023)</p>
+                        </div>
+                    </div>
+                    <div class="glass p-4 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-white">Emerging Trends in Bioinformatics</p>
+                            <p class="text-xs text-gray-400">CADD & Machine Learning Webinar (2023)</p>
+                        </div>
+                    </div>
+                    <div class="glass p-4 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-white">CRISPR-Cas9 Technology</p>
+                            <p class="text-xs text-gray-400">AWKUM Garden Campus (2023)</p>
+                        </div>
+                    </div>
+                    <div class="glass p-4 rounded-lg flex items-start gap-3">
+                        <i class="fa-solid fa-calendar-check text-cyan-400 mt-1"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-white">International Youth Conference</p>
+                            <p class="text-xs text-gray-400">UCLA Luskin School (2024)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOOCs Section -->
+    <section class="py-20 relative">
+        <div class="container mx-auto px-6">
+            <div class="glass border-l-4 border-blue-500 p-8 rounded-r-xl max-w-5xl mx-auto reveal">
+                <h3 class="text-2xl font-bold text-white mb-6">Certifications & Courses</h3>
+                <div class="grid md:grid-cols-2 gap-y-2 gap-x-8 text-sm">
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Drug Discovery &
+                        Development (UCT)</p>
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Cancer Biology (Johns
+                        Hopkins)</p>
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Immunology (Imperial
+                        College London)</p>
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Clinical Trials
+                        Operations (Johns Hopkins)</p>
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Python for Genomic Data
+                        Science</p>
+                    <p class="text-gray-300"><i class="fa-solid fa-check text-blue-500 mr-2"></i>Machine Learning with
+                        Python (IBM)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-t from-black to-transparent">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 reveal">
+                <i class="fa-solid fa-paper-plane text-cyan-400 mr-2"></i> Let's Connect
+            </h2>
+            <p class="text-center text-gray-400 mb-16 reveal">Open to research collaborations and opportunities</p>
+
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <h3 class="text-2xl font-bold text-white mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center group cursor-pointer">
+                            <div
+                                class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors mr-4">
+                                <i class="fa-solid fa-envelope text-cyan-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Email</p>
+                                <a href="mailto:afzal.biochem92@gmail.com"
+                                    class="text-white font-mono hover:text-cyan-400 transition-colors">afzal.biochem92@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center group cursor-pointer">
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors mr-4">
+                                <i class="fa-solid fa-phone text-purple-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Phone</p>
+                                <a href="tel:+923442748489"
+                                    class="text-white font-mono hover:text-purple-400 transition-colors">(+92)
+                                    0344-2748489</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center group cursor-pointer">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors mr-4">
+                                <i class="fa-brands fa-linkedin text-blue-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">LinkedIn</p>
+                                <a href="https://www.linkedin.com/in/afzalkhan-safi92" target="_blank"
+                                    class="text-white font-mono hover:text-blue-400 transition-colors">afzalkhan-safi92</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center group cursor-pointer">
+                            <div
+                                class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors mr-4">
+                                <i class="fa-solid fa-map-marker-alt text-emerald-400"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Address</p>
+                                <span class="text-white font-mono">Takht Bhai, Mardan, Pakistan</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- References -->
+                <div class="glass p-8 rounded-2xl reveal delay-200">
+                    <h3 class="text-xl font-bold text-white mb-4">Professional References</h3>
+                    <div class="space-y-4">
+                        <div class="border-b border-white/10 pb-4">
+                            <p class="text-white font-bold">Prof. Dr. Abdul Wadood</p>
+                            <p class="text-sm text-emerald-400">Professor & Supervisor, AWKUM</p>
+                            <p class="text-xs text-gray-400 mt-1">awadood@awkum.edu.pk</p>
+                        </div>
+                        <div>
+                            <p class="text-white font-bold">Prof. Dr. Asifullah Khan</p>
+                            <p class="text-sm text-emerald-400">Professor, Biochemistry, AWKUM</p>
+                            <p class="text-xs text-gray-400 mt-1">asif@awkum.edu.pk</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/5 bg-black/40 text-center">
+        <p class="text-gray-500 text-sm">
+            &copy; 2026 Afzal Khan. All rights reserved. <br>
+            <span class="text-xs opacity-50">Scientific Portfolio</span>
+        </p>
+        <p class="text-gray-600 text-xs mt-2">
+            Developed by <span class="text-gray-500">Sohail Ahmad</span>
+        </p>
+    </footer>
+
+    <!-- JS Link -->
+    <script src="script.js"></script>
+</body>
+
+</html>
